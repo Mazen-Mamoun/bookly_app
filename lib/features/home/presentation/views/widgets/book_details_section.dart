@@ -17,7 +17,7 @@ class BookDetailsSection extends StatelessWidget {
             horizontal: screenWidth * 0.17,
             vertical: 30,
           ),
-          child: CustomBookImage(),
+          child: CustomBookImage(imageUrl: "",),
         ),
         SizedBox(height: 10),
         Text("The Jungle Book", style: Styles.textStyle30),
