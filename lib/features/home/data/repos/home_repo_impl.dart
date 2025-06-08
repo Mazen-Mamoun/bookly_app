@@ -19,14 +19,14 @@ class HomeRepoImpl implements HomeRepo {
 
       List<BookModel> books = [];
       for (var item in response['items']) {
-        books.add(item);
+        books.add(BookModel.fromJson(item));
       }
       return Right(books);
-    } catch (e) {
+    } on Exception catch (e) {
       if (e is DioException) {
         return Left(ServerFailuer.fromDioError(e));
       }
-      return Left(ServerFailuer.fromDioError(e.toString() as DioException));
+      return Left(ServerFailuer(e.toString()));
     }
   }
 
@@ -39,14 +39,14 @@ class HomeRepoImpl implements HomeRepo {
 
       List<BookModel> books = [];
       for (var item in response['items']) {
-        books.add(item);
+        books.add(BookModel.fromJson(item));
       }
       return Right(books);
     } catch (e) {
       if (e is DioException) {
         return Left(ServerFailuer.fromDioError(e));
       }
-      return Left(ServerFailuer.fromDioError(e.toString() as DioException));
+      return Left(ServerFailuer(e.toString()));
     }
   }
 }
