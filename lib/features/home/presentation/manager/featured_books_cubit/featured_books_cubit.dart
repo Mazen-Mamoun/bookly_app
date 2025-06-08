@@ -3,7 +3,7 @@ import 'package:bookly_app/features/home/presentation/manager/featured_books_cub
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FeaturedBooksCubit extends Cubit {
-  FeaturedBooksCubit(super.initialState, this.homeRepo);
+  FeaturedBooksCubit(this.homeRepo) : super(InitialFeaturedBooks());
   final HomeRepo homeRepo;
   Future<void> fetchFeaturedBooks() async {
     emit(LoadingFeaturedBooks());

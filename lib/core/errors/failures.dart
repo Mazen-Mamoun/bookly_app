@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 abstract class Failures {
   final String errMessage;
@@ -18,11 +17,9 @@ class ServerFailuer extends Failures {
       case DioExceptionType.receiveTimeout:
         return ServerFailuer("Receive timeout with API server");
 
-      case DioExceptionType.badCertificate:
-        // TODO: Handle this case.
-        throw UnimplementedError();
+      
       case DioExceptionType.badResponse:
-        return ServerFailuer.DioResponse(
+        return ServerFailuer.dioResponse(
           dioError.response!.statusCode!,
           dioError.response!.data,
         );
@@ -39,7 +36,7 @@ class ServerFailuer extends Failures {
         return ServerFailuer("opps there was an error, please try later");
     }
   }
-  factory ServerFailuer.DioResponse(int statusCode, dynamic response) {
+  factory ServerFailuer.dioResponse(int statusCode, dynamic response) {
     if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
       return ServerFailuer(response['error']['message']);
     } else if (statusCode == 404) {
