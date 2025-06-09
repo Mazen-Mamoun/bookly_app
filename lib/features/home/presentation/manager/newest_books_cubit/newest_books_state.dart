@@ -7,11 +7,11 @@ class InitialNewestBooks extends NewestBooksState {}
 class LoadingNewestBooks extends NewestBooksState {}
 
 class SuccessNewestBooks extends NewestBooksState {
- final List<BookModel> book;
-  SuccessNewestBooks(this.book);
+  final List<BookModel> books;
+  SuccessNewestBooks(this.books);
 }
 
 class FailureNewestBooks extends NewestBooksState {
   final String errMessage;
-   FailureNewestBooks(this.errMessage);
+  FailureNewestBooks(this.errMessage);
 }
