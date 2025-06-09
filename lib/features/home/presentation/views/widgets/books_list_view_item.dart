@@ -23,17 +23,18 @@ class BooksListViewItem extends StatelessWidget {
           child: Row(
             children: [
               CustomBookImage(
-                imageUrl: booksModel.volumeInfo!.imageLinks!.thumbnail!,
+                imageUrl: booksModel.volumeInfo!.imageLinks?.thumbnail ?? '',
               ),
               const SizedBox(width: 30),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width * .5,
                       child: Text(
-                        booksModel.volumeInfo!.title!,
+                        booksModel.volumeInfo!.title ?? 'no title',
                         style: Styles.textStyle20.copyWith(
                           fontFamily: kGtSectraFine,
                         ),
@@ -45,7 +46,11 @@ class BooksListViewItem extends StatelessWidget {
                     Opacity(
                       opacity: .7,
                       child: Text(
-                        booksModel.volumeInfo!.authors![0],
+                        (booksModel.volumeInfo?.authors?.isNotEmpty ?? false)
+                            ? booksModel.volumeInfo!.authors![0]
+                            : 'Unknown author',
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: Styles.textStyle14,
                       ),
                     ),
@@ -54,7 +59,9 @@ class BooksListViewItem extends StatelessWidget {
                       children: [
                         Text(
                           'free',
-                          style: Styles.textStyle20.copyWith(
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Styles.textStyle16.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),

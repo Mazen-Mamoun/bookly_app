@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 
 abstract class Failures {
@@ -17,7 +19,6 @@ class ServerFailuer extends Failures {
       case DioExceptionType.receiveTimeout:
         return ServerFailuer("Receive timeout with API server");
 
-      
       case DioExceptionType.badResponse:
         return ServerFailuer.dioResponse(
           dioError.response!.statusCode!,
@@ -27,7 +28,7 @@ class ServerFailuer extends Failures {
         return ServerFailuer("Request to API server was canceld");
 
       case DioExceptionType.connectionError:
-        if (dioError.message!.contains("SocketException")) {
+        if (dioError.error is SocketException) {
           return ServerFailuer("No internet connection");
         } else {
           return ServerFailuer("Unexpected error, please try again");

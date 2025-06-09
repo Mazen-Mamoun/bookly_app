@@ -13,8 +13,7 @@ class HomeRepoImpl implements HomeRepo {
   Future<Either<Failures, List<BookModel>>> fetcNewestBooks() async {
     try {
       var response = await apiServices.get(
-        endpoint:
-            "volumes?q=subject:programming&filtering=free-ebooks&sorting=newest",
+        endpoint: "volumes?q=flutter&filtering=free-ebooks&sorting=newest",
       );
 
       List<BookModel> books = [];
@@ -22,7 +21,7 @@ class HomeRepoImpl implements HomeRepo {
         books.add(BookModel.fromJson(item));
       }
       return Right(books);
-    } on Exception catch (e) {
+    } catch (e) {
       if (e is DioException) {
         return Left(ServerFailuer.fromDioError(e));
       }
